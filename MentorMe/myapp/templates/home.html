@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MentorMe</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background-color: #c9e6ff;
+      font-family: 'Roboto', sans-serif;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      transition: margin-left 0.4s;
+    }
+
+    .sidebar.open + body {
+      margin-left: 250px;
+    }
+
+    .menu-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+      margin-right: 10px;
+    }
+
+    /* Search bar */
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 5px 10px;
+      background: white;
+    }
+
+    /* Виділення всієї форми при фокусі */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 5px 10px;
+      width: 40%;
+      background: white;
+      height: 35px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    /* Виділення всієї форми при фокусі */
+    .search-bar:focus-within {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Іконка пошуку */
+    .search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px; /* Менший розмір */
+      color: #555;
+      padding: 2px;
+    }
+
+    /* Поле введення */
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      padding: 2px;
+      background: transparent;
+      height: 100%;
+    }
+
+    /* Login & Sign up buttons */
+    .btn-login {
+      background-color: #007bff;
+      color: white !important;
+      border-radius: 25px;
+      padding: 5px 15px;
+    }
+
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+
+    .signup-link {
+      color: black !important;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 10px 10px;
+    }
+
+    .notification-icon {
+      font-size: 20px;
+      color: black;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: white;
+      overflow-x: hidden;
+      transition: width 0.4s ease-in-out;
+      padding-top: 60px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block;
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 15px;
+      font-size: 36px;
+      background-color: #111;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+    }
+
+    /*Main Content*/
+    .main-content {
+      flex: 1; /* Дозволяє займати доступний простір */
+      padding-bottom: 20px; /* Запас місця перед footer */
+    }
+
+    /* Оновлення горизонтального списку */
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      padding: 20px 0;
+      gap: 15px;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    /* Додаємо запасний відступ для footer */
+    .carousel-container {
+      position: relative;
+      width: 80%;
+      margin: 40px auto;
+      overflow: hidden;
+    }
+
+    .scroll-container::after {
+      content: "";
+      display: block;
+      height: 20px; /* Додатковий відступ перед footer */
+    }
+
+    .teachers-container {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px;
+      scrollbar-width: none; /* Приховуємо стандартний скролбар */
+    }
+
+    .teachers-container::-webkit-scrollbar {
+      display: none; /* Приховуємо стандартний скролбар у Chrome */
+    }
+
+    .teacher-card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 250px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .teacher-card img {
+      width: 50%;
+      border-radius: 10px;
+    }
+
+    .teacher-card h4 {
+      margin: 10px 0;
+    }
+
+    .teacher-card p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    /* Ефект підсвічування при наведенні */
+    .teacher-card:hover {
+      background-color: #007bff;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 255, 0.5);
+    }
+
+    .teacher-card:hover p {
+      color: white;
+    }
+
+    /* Стилі для кнопок прокрутки */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 20px;
+      border-radius: 50%;
+    }
+
+    .scroll-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .left-btn {
+      left: 0;
+    }
+
+    .right-btn {
+      right: 0;
+    }
+
+    /* Jumbotron */
+    .jumbotron {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      background-color: #c9e6ff;
+      height: 100vh;
+      background-size: cover;
+      text-align: center;
+      padding: 50px 20px;
+      color: black;
+    }
+
+    .jumbotron h1 {
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      border-radius: 25px;
+      padding: 10px 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: black;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      width: 100%;
+      position: relative; /* Було fixed або absolute? */
+      bottom: 0;
+      left: 0;
+      clear: both;
+    }
+
+    .fa {
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: #E1306C;
+      color: white;
+    }
+
+    .fa-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .search-container {
+      width: 50%;
+      margin: 100px auto;
+      text-align: center;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 15px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+    }
+
+    .search-box button {
+      position: absolute;
+      background-color: #007bff;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 4px #007bff;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+    }
+  </style>
+</head>
+
+<body onclick="closeNavOnClickOutside(event)">
+
+  {% include 'navbar.html' %}
+
+  <br><br>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="jumbotron">
+      <h1>Welcome to <b>MentorMe</b></h1>
+      <p>Knowledge is key to success. Explore the distinct roles and responsibilities in the mentor-mentee relationship,<br>
+        understanding their unique contributions, benefits, and impacts on growth and success.</p>
+      <div class="search-container">
+        <h3>Search for mentees and mentors</h3>
+        <form action="/search" method="GET">
+          <div class="search-box">
+            <input type="text" name="query" placeholder="Enter your search..." required>
+            <button type="submit"><i class="fas fa-search"></i></button>
+          </div>
+        </form>
+      </div>
+      <a class="btn btn-primary btn-lg" href="/register">Take Admission</a>
+
+      <br>
+      <!-- Горизонтальний список -->
+      <div class="carousel-container">
+        <button class="scroll-btn left-btn" onclick="scrollLeft()">&#10094;</button>
+        <div class="teachers-container" id="teachersScroll">
+          <div class="teacher-card">
+            <img src="{% static 'img/user2-160x160.jpg' %}" alt="Фото викладача">
+            <h3>Іван Петренко</h3>
+            <p>Київ, Україна</p>
+            <p>Математика</p>
+          </div>
+
+          <div class="teacher-card">
+            <img src="{% static 'img/user1-128x128.jpg' %}" alt="Фото викладача">
+            <h3>Олена Сидоренко</h3>
+            <p>Львів, Україна</p>
+            <p>Англійська мова</p>
+          </div>
+
+          <div class="teacher-card">
+            <img src="{% static 'img/user2-160x160.jpg' %}" alt="Фото викладача">
+            <h3>Артем Коваль</h3>
+            <p>Одеса, Україна</p>
+            <p>Фізика</p>
+          </div>
+
+          <div class="teacher-card">
+            <img src="{% static 'img/user4-128x128.jpg' %}" alt="Фото викладача">
+            <h3>Марія Гриценко</h3>
+            <p>Харків, Україна</p>
+            <p>Хімія</p>
+          </div>
+
+          <div class="teacher-card">
+            <img src="{% static 'img/user7-128x128.jpg' %}" alt="Фото викладача">
+            <h3>Василь Бондаренко</h3>
+            <p>Дніпро, Україна</p>
+            <p>Історія</p>
+          </div>
+        </div>
+        <button class="scroll-btn right-btn" onclick="scrollRight()">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
+      <a href="https://api.whatsapp.com/send" class="fa fa-whatsapp"></a>
+      <a href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
+      <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+            <p>Made in Ukraine <br> Copyright &copy; 2025 APTeam </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function scrollLeft() {
+      document.getElementById('teachersScroll').scrollBy({
+        left: -300,
+        behavior: 'smooth'
+      });
+    }
+
+    function scrollRight() {
+      document.getElementById('teachersScroll').scrollBy({
+        left: 300,
+        behavior: 'smooth'
+      });
+    }
+
+    function closeNavOnClickOutside(event) {
+      if (!event.target.closest('.sidebar') && !event.target.closest('.menu-btn')) {
+        closeNav();
+      }
+    }
+  </script>
+
+</body>
+
+</html>

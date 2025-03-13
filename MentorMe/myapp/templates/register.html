@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>MentorMe || Register</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script> new WOW().init(); </script>
+
+  <style type="text/css">
+    body {
+      background-color: #c9e6ff;
+      font-family: 'Roboto', sans-serif;
+      color: black;
+      transition: margin-left 0.4s;
+    }
+
+    .sidebar.open + body {
+      margin-left: 250px;
+    }
+
+    /* Login & Sign up buttons */
+    .btn-login {
+      background-color: #007bff;
+      color: white !important;
+      border-radius: 25px;
+      padding: 5px 15px;
+    }
+
+    .btn-login:hover {
+      background-color: #0056b3;
+    }
+
+    .signup-link {
+      color: black !important;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 10px 10px;
+    }
+
+    .notification-icon {
+      font-size: 20px;
+      color: black;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background-color: black;
+      padding: 20px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .fa {
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fa-facebook { background: #3B5998; color: white; }
+    .fa-twitter { background: #55ACEE; color: white; }
+    .fa-instagram { background: #E1306C; color: white; }
+    .fa-whatsapp { background: #25D366; color: white; }
+
+    .form-content {
+      padding: 6%;
+      border: 1px solid #ced4da;
+      margin-bottom: 5%;
+      text-align: center;
+      max-width: 600px; /* Щоб не розтягувалась */
+      margin: auto; /* Центрування */
+    }
+
+    .form-group {
+      text-align: left; /* Щоб текстове поле і підписи виглядали добре */
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 1.6rem;
+      padding: 2%;
+      width: 60%;
+      cursor: pointer;
+      background: #0062cc;
+      color: #fff;
+    }
+
+    .bs-example {
+      margin: 0px;
+    }
+
+    .jumbotron {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      background-image: url('{% static "img/bg2.jpg" %}');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+  }
+  
+  .input-group .form-control {
+      flex: 1;
+      border-radius: 10px;
+      height: 40px;
+  }
+  
+  .input-group-append {
+      display: flex;
+      align-items: center;
+  }
+  
+  .input-group-append .btn {
+      height: 40px; /* Встановлює висоту таку ж, як у поля вводу */
+      border-radius: 0 10px 10px 0; /* Закруглення правого краю */
+      padding: 5px 10px;
+  }
+
+  .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .password-container .password-field {
+    width: 100%;
+    padding-right: 40px; /* Додаємо простір для іконки */
+    border-radius: 20px;
+    height: 40px;
+  }
+
+  .password-container .toggle-password {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .password-container .toggle-password i {
+    font-size: 18px;
+    color: #777;
+  }
+
+    .jumbotron h1 {
+      text-align: center;
+    }
+
+    .alert {
+      margin: 0px;
+    }
+
+    .glow {
+      font-size: 70px;
+      color: #ffffff;
+      text-align: center;
+      -webkit-animation: glow 1s ease-in-out infinite alternate;
+      -moz-animation: glow 1s ease-in-out infinite alternate;
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @-webkit-keyframes glow {
+      from {
+        text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+      }
+
+      to {
+        text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+      }
+    }
+
+    .note {
+      background: linear-gradient(45deg, #007bff, #00d4ff);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body onclick="closeNavOnClickOutside(event)">
+
+  {% include 'navbar.html' %}
+  <br><br><br><br>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container register-form">
+      <div class="form">
+        <div class="note">
+          <p style="text-align: center; font-weight: bold; font-size: 35px;">Register</p>
+        </div>
+
+        <div class="form-content">
+          <div class="form-group">
+            {% render_field form.username class="form-control" placeholder="Full Name" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.email class="form-control" placeholder="Email" %}
+          </div>
+          <div class="form-group">
+            <div class="password-container">
+                {% render_field form.password1 class="form-control password-field" placeholder="Password" id="id_password1" %}
+                <button class="toggle-password" type="button" onclick="togglePasswordVisibility('id_password1')">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="password-container">
+                {% render_field form.password2 class="form-control password-field" placeholder="Repeat Password" id="id_password2" %}
+                <button class="toggle-password" type="button" onclick="togglePasswordVisibility('id_password2')">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+          </div>
+          <button type="submit" class="btnSubmit">Take Admission</button>
+          <div class="text-center">Already have an account? <a href="/login">Login here</a></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <br><br><br><br>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
+      <a href="https://api.whatsapp.com/send" class="fa fa-whatsapp"></a>
+      <a href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
+      <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+            <p>Made in Ukraine <br> Copyright &copy; 2025 APTeam </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    function togglePasswordVisibility(inputId) {
+      var input = document.getElementById(inputId);
+      var icon = input.nextElementSibling.querySelector("i");
+  
+      if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+      } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+      }
+    }
+  </script>
+
+</body>
+</html>

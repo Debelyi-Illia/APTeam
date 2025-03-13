@@ -1,0 +1,191 @@
+{% load static %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-light fixed-top">
+    <button class="menu-btn" onclick="toggleNav()">&#9776;</button>
+
+    <a href="/" class="navbar-brand">
+        <img src="{% static 'img/logo.png' %}" alt="Logo"> <b>Mentor</b>Me
+    </a>
+
+    <!-- Search Bar -->
+    <form class="search-bar">
+        <span class="search-icon"><i class="fa fa-search"></i></span>
+        <input type="text" class="search-input" placeholder="Search...">
+    </form>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+        <i class="fa fa-bell notification-icon"></i>
+        <a href="/register" class="signup-link">Sign up</a>
+        <a href="/login" class="btn btn-login">Log in</a>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+    <a href="#" class="close-btn" onclick="closeNav()">×</a>
+    <a href=""><i class="fa fa-home"></i> Home</a>
+    <a href="/admin"><i class="fa fa-cog"></i> Admin</a>
+    <a href="/user_profile"><i class="fa fa-user"></i> User</a> 
+    <a href="#"><i class="fa fa-info-circle"></i> About</a>
+    <a href="#"><i class="fa fa-cogs"></i> Services</a>
+    <a href="#"><i class="fa fa-envelope"></i> Contact</a>
+</div>
+
+<!-- CSS (можна винести в окремий .css файл, але поки тут) -->
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: white !important;
+        padding: 8px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: 60px;
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        color: black !important;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .navbar-brand img {
+        height: 30px;
+        margin-right: 8px;
+    }
+
+    .menu-btn {
+        font-size: 22px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
+        margin-right: 10px;
+    }
+
+    /* Search bar */
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 5px 10px;
+      background: white;
+    }
+
+    /* Виділення всієї форми при фокусі */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 5px 10px;
+      width: 40%;
+      background: white;
+      height: 35px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    /* Виділення всієї форми при фокусі */
+    .search-bar:focus-within {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Іконка пошуку */
+    .search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px; /* Менший розмір */
+      color: #555;
+      padding: 2px;
+    }
+
+    /* Поле введення */
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      padding: 2px;
+      background: transparent;
+      height: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Початкове положення за екраном */
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        overflow-x: hidden;
+        transition: left 0.3s ease; /* Анімація зсуву */
+        padding-top: 60px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+      
+    /* Стиль для кнопок всередині */
+    .sidebar a {
+        padding: 5px 10px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+        transition: 0.3s;
+        border-radius: 5px;
+    }
+
+    .sidebar a i {
+        margin-right: 10px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 25px;
+        color: black;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<!-- JavaScript для відкриття/закриття Sidebar -->
+<script>
+    function toggleNav() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.toggle("open");
+    }
+
+    function closeNav() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.remove("open");
+    }
+
+    document.addEventListener("click", function(event) {
+        const sidebar = document.getElementById("mySidebar");
+        const menuBtn = document.querySelector(".menu-btn");
+
+        // Закриваємо меню, якщо клікнули за межами sidebar і кнопки
+        if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+            sidebar.classList.remove("open");
+        }
+    });
+</script>
