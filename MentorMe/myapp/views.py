@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
 from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
+from django.contrib.auth import login
 
 # Create your views here.
 def showDemoPage(request):
@@ -27,10 +28,14 @@ def RegisterView(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('login')
+            user = form.save()
+            login(request, user)
+            print(f"Користувач {user.username} успішно зареєстрований!")  # Повідомлення про успіх
+            return redirect('home')  # Перенаправлення на головну сторінку після реєстрації
+        else:
+            print("Помилки валідації форми:")  # Виведення помилок валідації
+            for field, errors in form.errors.items():
+                print(f"Поле {field}: {', '.join(errors)}")  # Виведення помилок для кожного поля
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})

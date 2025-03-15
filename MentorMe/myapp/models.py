@@ -1,7 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(models.Model):
+class User(AbstractUser):
     user_name = models.CharField(max_length=150)
     user_real_name = models.CharField(max_length=150)
     user_password = models.CharField(max_length=150)
