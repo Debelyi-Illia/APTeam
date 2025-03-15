@@ -89,3 +89,9 @@ def search_users(request):
         'results': results,
     }
     return render(request, 'home_after_login.html', context)
+
+def AdView(request):
+    if request.user.is_authenticated:
+        return render(request, 'ad.html')
+    else:
+        return redirect('login')
