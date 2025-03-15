@@ -16,7 +16,7 @@
     <script> new WOW().init(); </script>
 
     <style type="text/css">
-        body {
+       body {
             background-color: #f4f4f4;
             font-family: 'Roboto', sans-serif;
             color: #333;
@@ -38,13 +38,6 @@
             font-weight: bold;
             text-decoration: none;
             padding: 10px 10px;
-        }
-
-        .notification-icon {
-            font-size: 20px;
-            color: black;
-            margin-right: 15px;
-            cursor: pointer;
         }
 
         .infobar {
@@ -79,7 +72,7 @@
         }
 
         .infobar li a {
-            padding: 15px 20px;
+            padding: 10px 13px; /* Зменшення відстані між елементами в 1.5 рази */
             text-decoration: none;
             font-size: 16px;
             color: black;
@@ -129,17 +122,17 @@
         .bg-c-pink { background: linear-gradient(45deg, #FF5370, #ff869a); color: white; }
 
         footer {
-      background-color: black;
-      padding: 20px;
-      text-align: center;
-      color: white;
-      width: 100%;
-      position: relative;
-      bottom: 0;
-      left: 0;
-      clear: both;
-      margin-top: auto; /* Додає автоматичний відступ зверху */
-    }
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            clear: both;
+            margin-top: auto; /* Додає автоматичний відступ зверху */
+        }
 
         .fa {
             font-size: 20px;
@@ -162,37 +155,70 @@
         /* Schedule */
         .schedule {
             margin-top: 20px;
+            background-color: #e0f7fa;
+            padding: 20px;
+            border-radius: 10px;
         }
-
+        
         .schedule table {
             width: 100%;
             border-collapse: collapse;
         }
-
+        
         .schedule th, .schedule td {
-            padding: 10px;
+            padding: 5px;
             border: 1px solid #ddd;
             text-align: center;
+            border-radius: 5px;
         }
-
+        
         .schedule th {
             background-color: #f4f4f4;
         }
-
+        
         .schedule td {
             background-color: #fff;
         }
-
-        .schedule .completed {
-            background-color: #d4edda;
+        
+        .schedule .btn {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
         }
-
-        .schedule .upcoming {
-            background-color: #fff3cd;
+        
+        .schedule .math {
+            background-color: #ff9999; /* Червоний */
         }
-
-        .schedule .missed {
-            background-color: #f8d7da;
+        
+        .schedule .physics {
+            background-color: #99ccff; /* Синій */
+        }
+        
+        .schedule .chemistry {
+            background-color: #99ff99; /* Зелений */
+        }
+        
+        .schedule .btn:hover {
+            opacity: 0.8;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            width: 200px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -204,12 +230,12 @@
     <!-- User Info -->
     <div class="infobar" id="InfoBar">
         <div class="profile-image"></div>
-        <h3>{{ request.user.first_name }}</h3>
+        <h3>{{ request.user.username }}</h3>
         <ul>
             <li><a href="/"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a href="/user"><i class="fa fa-user"></i> Attendance</a></li>
-            <li><a href="/teacherclick"><i class="fa fa-chalkboard-teacher"></i> Teacher</a></li>
-            <li><a href="/studentclick"><i class="fa fa-graduation-cap"></i> Student</a></li>
+            <li><a href="/user_profile"><i class="fa fa-user"></i> User</a></li>
+            <li><a href="#"><i class="fa fa-chalkboard-teacher"></i> Profile</a></li>
+            <li><a href="#"><i class="fa fa-graduation-cap"></i> My Ads</a></li>
         </ul>
     </div>
 
@@ -259,110 +285,144 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card bg-c-yellow order-card">
+                    <div class="card bg-c-blue order-card">
                         <div class="card-block">
                             <h6 class="m-b-20">Schedule</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Monday</th>
-                                        <th>Tuesday</th>
-                                        <th>Wednesday</th>
-                                        <th>Thursday</th>
-                                        <th>Friday</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>9:00</td>
-                                        <td>Expectations Discussion</td>
-                                        <td>Meeting w/ Graduate Mentor</td>
-                                        <td>Technical Training</td>
-                                        <td>Background Reading</td>
-                                        <td>Data Analysis</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10:00</td>
-                                        <td>Laboratory Tour</td>
-                                        <td>Experimental Protocol Reading & Discussion</td>
-                                        <td>Technical Training</td>
-                                        <td>Experiment</td>
-                                        <td>Data Analysis</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11:00</td>
-                                        <td>Laboratory Tour</td>
-                                        <td>Experimental Protocol Reading & Discussion</td>
-                                        <td>Technical Training</td>
-                                        <td>Experiment</td>
-                                        <td>Data Analysis</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12:00</td>
-                                        <td>Free</td>
-                                        <td>Free</td>
-                                        <td>Free</td>
-                                        <td>Free</td>
-                                        <td>Free</td>
-                                    </tr>
-                                    <tr>
-                                        <td>13:00</td>
-                                        <td>Safety Orientation</td>
-                                        <td>Technical Training</td>
-                                        <td>Meeting w/ Faculty Advisor</td>
-                                        <td>Experiment</td>
-                                        <td>Departmental Seminar or Webinar</td>
-                                    </tr>
-                                    <tr>
-                                        <td>14:00</td>
-                                        <td>Technical Training</td>
-                                        <td>Technical Training</td>
-                                        <td>Meeting w/ Faculty Advisor</td>
-                                        <td>Experiment</td>
-                                        <td>Departmental Seminar or Webinar</td>
-                                    </tr>
-                                    <tr>
-                                        <td>15:00</td>
-                                        <td>Project Discussion & Background Resources</td>
-                                        <td>Technical Training</td>
-                                        <td>Laboratory Group Meeting</td>
-                                        <td>Experiment</td>
-                                        <td>Learning Statistics</td>
-                                    </tr>
-                                    <tr>
-                                        <td>16:00</td>
-                                        <td>Project Discussion & Background Resources</td>
-                                        <td>Background Reading</td>
-                                        <td>Laboratory Group Meeting</td>
-                                        <td>Experiment</td>
-                                        <td>Learning Statistics</td>
-                                    </tr>
-                                    <tr>
-                                        <td>17:00</td>
-                                        <td>Project Discussion & Background Resources</td>
-                                        <td>Background Reading</td>
-                                        <td>Laboratory Group Meeting</td>
-                                        <td>Experiment</td>
-                                        <td>Weekly Overview & Preparation</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card bg-c-yellow order-card">
-                        <div class="card-block">
-                            <h6 class="m-b-20">Performance</h6>
-                            <canvas id="performanceChart"></canvas>
+                            <div class="schedule">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                            <th>9</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Monday</td>
+                                            <td><button class="btn math" data-info="Math, 9:00, John Doe">9:00</button></td>
+                                            <td><button class="btn free">10:00</button></td>
+                                            <td><button class="btn physics" data-info="Physics, 11:00, Jane Smith">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn chemistry" data-info="Chemistry, 13:00, John Doe">13:00</button></td>
+                                            <td><button class="btn free">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tuesday</td>
+                                            <td><button class="btn free">9:00</button></td>
+                                            <td><button class="btn math" data-info="Math, 10:00, John Doe">10:00</button></td>
+                                            <td><button class="btn free">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn free">13:00</button></td>
+                                            <td><button class="btn physics" data-info="Physics, 14:00, Jane Smith">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wednesday</td>
+                                            <td><button class="btn math" data-info="Math, 9:00, John Doe">9:00</button></td>
+                                            <td><button class="btn free">10:00</button></td>
+                                            <td><button class="btn physics" data-info="Physics, 11:00, Jane Smith">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn chemistry" data-info="Chemistry, 13:00, John Doe">13:00</button></td>
+                                            <td><button class="btn free">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thursday</td>
+                                            <td><button class="btn free">9:00</button></td>
+                                            <td><button class="btn math" data-info="Math, 10:00, John Doe">10:00</button></td>
+                                            <td><button class="btn free">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn free">13:00</button></td>
+                                            <td><button class="btn physics" data-info="Physics, 14:00, Jane Smith">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Friday</td>
+                                            <td><button class="btn math" data-info="Math, 9:00, John Doe">9:00</button></td>
+                                            <td><button class="btn free">10:00</button></td>
+                                            <td><button class="btn physics" data-info="Physics, 11:00, Jane Smith">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn chemistry" data-info="Chemistry, 13:00, John Doe">13:00</button></td>
+                                            <td><button class="btn free">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saturday</td>
+                                            <td><button class="btn free">9:00</button></td>
+                                            <td><button class="btn free">10:00</button></td>
+                                            <td><button class="btn free">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn free">13:00</button></td>
+                                            <td><button class="btn free">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn free">19:00</button></td>
+                                            <td><button class="btn free">20:00</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sunday</td>
+                                            <td><button class="btn free">9:00</button></td>
+                                            <td><button class="btn free">10:00</button></td>
+                                            <td><button class="btn free">11:00</button></td>
+                                            <td><button class="btn free">12:00</button></td>
+                                            <td><button class="btn free">13:00</button></td>
+                                            <td><button class="btn free">14:00</button></td>
+                                            <td><button class="btn free">15:00</button></td>
+                                            <td><button class="btn free">16:00</button></td>
+                                            <td><button class="btn free">17:00</button></td>
+                                            <td><button class="btn free">18:00</button></td>
+                                            <td><button class="btn chemistry" data-info="Chemistry, 19:00, John Doe">19:00</button></td>
+                                            <td><button class="btn chemistry" data-info="Chemistry, 20:00, John Doe">20:00</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="tooltip"></div>
 
     <!-- Footer -->
     <footer>
@@ -385,29 +445,48 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var ctx = document.getElementById('performanceChart').getContext('2d');
-            var performanceChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [{
-                        label: 'Performance',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+            const buttons = document.querySelectorAll('.schedule .btn');
+            let tooltip = document.querySelector('.tooltip');
+        
+            // Якщо тултіп ще не існує, створюємо його
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                document.body.appendChild(tooltip);
+            }
+        
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function () {
+                    const info = this.getAttribute('data-info');
+                    if (info) {
+                        tooltip.innerHTML = info;
+                        tooltip.style.display = 'block';
+        
+                        const rect = this.getBoundingClientRect();
+                        const tooltipHeight = tooltip.offsetHeight;
+        
+                        let top = rect.top + window.scrollY - tooltipHeight - 10; // Додаємо невеликий відступ
+                        let left = rect.left + window.scrollX;
+        
+                        // Перевірка, щоб тултіп не виходив за межі екрана
+                        if (top < 0) {
+                            top = rect.bottom + window.scrollY + 10; // Вивести тултіп знизу, якщо зверху не вистачає місця
                         }
+        
+                        if (left + tooltip.offsetWidth > window.innerWidth) {
+                            left = window.innerWidth - tooltip.offsetWidth - 10; // Виправлення для правого краю
+                        }
+        
+                        tooltip.style.left = `${left}px`;
+                        tooltip.style.top = `${top}px`;
                     }
-                }
+                });
+        
+                button.addEventListener('mouseleave', function () {
+                    tooltip.style.display = 'none';
+                });
             });
         });
-
         function toggleNav() {
             const sidebar = document.getElementById("mySidebar");
             sidebar.classList.toggle("open");
