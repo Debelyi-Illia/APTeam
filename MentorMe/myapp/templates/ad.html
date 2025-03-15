@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Create Ad</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background-color: #c9e6ff;
+      font-family: 'Roboto', sans-serif;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      transition: margin-left 0.4s;
+    }
+
+    .sidebar.open + body {
+      margin-left: 250px;
+    }
+
+    .menu-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+      margin-right: 10px;
+      outline: none; /* Прибирає виділення */
+    }
+
+    .custom-font h1 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600; /* Semibold */
+    }
+
+    .custom-font h4 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400; /* Regular */
+      opacity: 0.8;
+    }
+
+    .custom-font p {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400; /* Regular */
+      opacity: 0.8;
+    }
+
+    .form-container {
+      width: 50%;
+      margin: 100px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .form-container label {
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Instrument Sans', sans-serif;
+    }
+
+    .form-container button {
+      background-color: #2491c6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+    }
+
+    .form-container button:hover {
+      background-color: #1d7aa7;
+    }
+
+    footer {
+      background-color: black;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      left: 0;
+      clear: both;
+    }
+
+    .fa {
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: #E1306C;
+      color: white;
+    }
+
+    .fa-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include 'navbar_after_login.html' %}
+
+  <div class="form-container">
+    <h2>Create an Ad</h2>
+    <form action="/create_ad" method="POST">
+      {% csrf_token %}
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
+        <option value="teacher">Looking for a Teacher</option>
+        <option value="mentor">Looking for a Mentor</option>
+        <option value="study_group">Study Group</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="5" required></textarea>
+
+      <label for="start_time">Start Time</label>
+      <input type="datetime-local" id="start_time" name="start_time" required>
+
+      <label for="end_time">End Time</label>
+      <input type="datetime-local" id="end_time" name="end_time" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
+      <a href="https://api.whatsapp.com/send" class="fa fa-whatsapp"></a>
+      <a href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
+      <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+            <p>Made in Ukraine <br> Copyright &copy; 2025 APTeam </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
