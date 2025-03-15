@@ -53,7 +53,7 @@ def RegisterView(request):
             user.save()
             login(request, user)
             print(f"Користувач {user.username} успішно зареєстрований!")  # Повідомлення про успіх
-            return redirect('home')  # Перенаправлення на головну сторінку після реєстрації
+            return redirect('user_profile')  # Перенаправлення на головну сторінку після реєстрації
         else:
             print("Помилки валідації форми:")  # Виведення помилок валідації
             for field, errors in form.errors.items():
