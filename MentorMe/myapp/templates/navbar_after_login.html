@@ -2,312 +2,314 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light fixed-top">
-  <button class="menu-btn" onclick="toggleNav()">&#9776;</button>
+    <button class="menu-btn" onclick="toggleNav()">&#9776;</button>
 
-  <a href="/" class="navbar-brand">
-    <img src="{% static 'img/logo.png' %}" alt="Logo" /> <b>Mentor</b>Me
-  </a>
+    <a href="/" class="navbar-brand">
+        <img src="{% static 'img/logo.png' %}" alt="Logo"> <b>Mentor</b>Me
+    </a>
 
-  <!-- Search Bar -->
-  <form class="search-bar">
-    <span class="search-icon"><i class="fa fa-search"></i></span>
-    <input type="text" class="search-input" placeholder="Search..." />
-  </form>
-
-  <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-    <i class="fa fa-bell notification-icon" onclick="toggleNotifications()"></i>
-    <a
-      href="#"
-      class="signup-link"
-      onclick="document.getElementById('logout-form').submit();"
-      >Log out</a
-    >
-    <!-- Hidden form for logout -->
-    <form
-      id="logout-form"
-      action="{% url 'logout' %}"
-      method="post"
-      style="display: none"
-    >
-      {% csrf_token %}
+    <!-- Search Bar -->
+    <form class="search-bar">
+        <span class="search-icon"><i class="fa fa-search"></i></span>
+        <input type="text" class="search-input" placeholder="Search">
     </form>
-    <a href="/user_profile" class="btn btn-login">@user_name</a>
-  </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+        <i class="fa fa-bell notification-icon" onclick="toggleNotifications()"></i>
+        <a href="#" class="signup-link">Log out</a>
+        <a href="/user_profile" class="btn btn-login">@user_name</a>
+    </div>
 </nav>
 
 <!-- Sidebar -->
 <div id="mySidebar" class="sidebar">
-  <a href="#" class="close-btn" onclick="closeNav()">×</a>
-  <a href=""><i class="fa fa-home"></i> Home</a>
-  <a href="/admin"><i class="fa fa-cog"></i> Admin</a>
-  <a href="/user_profile"><i class="fa fa-user"></i> User</a>
-  <a href="#"><i class="fa fa-info-circle"></i> About</a>
-  <a href="#"><i class="fa fa-cogs"></i> Services</a>
-  <a href="#"><i class="fa fa-envelope"></i> Contact</a>
+    <a href="#" class="close-btn" onclick="closeNav()">×</a>
+    <a href=""><i class="fa fa-home"></i> Home</a>
+    <a href="/admin"><i class="fa fa-cog"></i> Admin</a>
+    <a href="/user_profile"><i class="fa fa-user"></i> User</a> 
+    <a href="#"><i class="fa fa-info-circle"></i> About</a>
+    <a href="#"><i class="fa fa-cogs"></i> Services</a>
+    <a href="#"><i class="fa fa-envelope"></i> Contact</a>
 </div>
 
 <!-- Notification Window -->
 <div id="notificationWindow" class="notification-window">
-  <div class="notification-header">
-    <h4>Notifications</h4>
-    <button class="close-btn" onclick="closeNotifications()">×</button>
-  </div>
-  <div class="notification-content">
-    <div class="notification-item">
-      <p>
-        <strong>Achievement unlocked!</strong> Check out your newest achievement
-      </p>
+    <div class="notification-header">
+        <h4>Notifications</h4>
+        <button class="close-btn" onclick="closeNotifications()">×</button>
     </div>
-    <div class="notification-item">
-      <p>
-        <strong>New student</strong> @NameOfStudent<strong>
-          was add to system</strong
-        >
-      </p>
-      <p>You can add add this student to you mentor group</p>
+    <div class="notification-content">
+        <div class="notification-item">
+            <p><strong>Achievement unlocked!</strong> Check out your newest achievement</p>
+        </div>
+        <div class="notification-item">
+            <p><strong>New student</strong> @NameOfStudent<strong> was add to system</strong></p>
+            <p>You can add add this student to you mentor group</p>
+        </div>
+        <div class="notification-item">
+            <p><strong>@NameOfMentor</strong> add you to his mentor group <strong> @YourName</strong></p>
+            <p>Please, review schedule changes</p>
+        </div>
+        <div class="notification-footer">
+            <button class="see-all-btn">See All</button>
+        </div>
     </div>
-    <div class="notification-item">
-      <p>
-        <strong>@NameOfMentor</strong> add you to his mentor group
-        <strong> @YourName</strong>
-      </p>
-      <p>Please, review schedule changes</p>
-    </div>
-    <div class="notification-footer">
-      <button class="see-all-btn">See All</button>
-    </div>
-  </div>
 </div>
 
 <!-- CSS (можна винести в окремий .css файл, але поки тут) -->
 <style>
-  /* Navbar */
-  .navbar {
-    background-color: white !important;
-    padding: 8px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 60px;
-  }
+    /* Navbar */
+    .navbar {
+        background-color: white !important;
+        padding: 8px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: 60px;
+    }
 
-  .navbar-brand {
-    display: flex;
-    align-items: center;
-    color: black !important;
-    font-weight: bold;
-    font-size: 20px;
-  }
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        color: black !important;
+        font-weight: bold;
+        font-size: 20px;
+    }
 
-  .navbar-brand img {
-    height: 30px;
-    margin-right: 8px;
-  }
+    .navbar-brand img {
+        height: 30px;
+        margin-right: 8px;
+    }
 
-  .menu-btn {
-    font-size: 22px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 5px;
-    margin-right: 10px;
-  }
+    .menu-btn {
+        font-size: 22px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
+        margin-right: 10px;
+        outline: none; /* Прибирає виділення */
+    }
 
-  /* Search Bar */
-  .search-bar {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 5px 10px;
-    background: white;
-  }
+    /* Search bar */
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      padding: 5px 10px;
+      background: white;
+    }
 
-  /* Виділення всієї форми при фокусі */
-  .search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 40%;
-    background: white;
-    height: 35px;
-    transition: border 0.3s, box-shadow 0.3s;
-  }
+    /* Виділення всієї форми при фокусі */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      width: 40%;
+      background: white;
+      height: 40px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
 
-  /* Виділення всієї форми при фокусі */
-  .search-bar:focus-within {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
+    /* Виділення всієї форми при фокусі */
+    .search-bar:focus-within {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 
-  /* Іконка пошуку */
-  .search-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px; /* Менший розмір */
-    color: #555;
-    padding: 2px;
-  }
+    /* Іконка пошуку */
+    .search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px; /* Менший розмір */
+      color: #555;
+      padding: 2px;
+    }
 
-  /* Поле введення */
-  .search-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    padding: 2px;
-    background: transparent;
-    height: 100%;
-  }
+    /* Поле введення */
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 2px;
+      background: transparent;
+      height: 100%;
+    }
 
-  /* Sidebar */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Початкове положення за екраном */
-    width: 250px;
-    height: 100%;
-    background-color: white;
-    overflow-x: hidden;
-    transition: left 0.3s ease; /* Анімація зсуву */
-    padding-top: 60px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
+    /* Sidebar */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Початкове положення за екраном */
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        overflow-x: hidden;
+        transition: left 0.3s ease; /* Анімація зсуву */
+        padding-top: 60px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
 
-  /* Стиль для кнопок всередині */
-  .sidebar a {
-    padding: 5px 10px;
-    text-decoration: none;
-    font-size: 16px; /* Зменшено розмір шрифту */
-    color: black;
-    display: block;
-    transition: 0.3s;
-    border-radius: 5px;
-  }
+    .notification-icon {
+        font-size: 20px;
+        color: #585f63;
+        margin-right: 12px;
+        cursor: pointer;
+    }
+      
+    /* Стиль для кнопок всередині */
+    .sidebar a {
+        padding: 5px 10px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+        transition: 0.3s;
+        border-radius: 5px;
+    }
 
-  .sidebar a i {
-    margin-right: 8px; /* Зменшено відстань між іконкою і текстом */
-    font-size: 14px; /* Зменшено розмір іконки */
-  }
+    .sidebar a i {
+        margin-right: 10px;
+    }
 
-  .sidebar.open {
-    left: 0;
-  }
+    .sidebar.open {
+        left: 0;
+    }
 
-  .sidebar a:hover {
-    background-color: #007bff;
-    color: white;
-  }
+    .sidebar a:hover {
+        background-color: #007bff;
+        color: white;
+    }
 
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 25px;
-    color: black;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 25px;
+        color: black;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
 
-  /* Notification Window */
-  .notification-window {
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    width: 300px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    display: none;
-    z-index: 1000;
-  }
+    /* Notification Window */
+    .notification-window {
+        position: fixed;
+        top: 60px;
+        right: 20px;
+        width: 300px;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        display: none;
+        z-index: 1000;
+    }
 
-  .notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
 
-  .notification-header h4 {
-    margin: 0;
-  }
+    .notification-header h4 {
+        margin: 0;
+    }
 
-  .notification-content {
-    max-height: 400px;
-    overflow-y: auto;
-  }
+    .notification-content {
+        max-height: 400px;
+        overflow-y: auto;
+    }
 
-  .notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
+    .notification-item {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
 
-  .notification-footer {
-    text-align: center;
-    padding: 10px;
-  }
+    .notification-footer {
+        text-align: center;
+        padding: 10px;
+    }
 
-  .see-all-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    .see-all-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-  .see-all-btn:hover {
-    background-color: #0056b3;
-  }
+    .see-all-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Login & Sign up buttons */
+    .btn-login {
+        background-color: #2491c6;
+        font-family: 'Instrument Sans', sans-serif;
+        font-width: 500;
+        color: white !important;
+        border-radius: 20px;
+        padding: 5px 15px;
+    }
+  
+    .btn-login:hover {
+        background-color: #1d7aa7;
+    }
+  
+    .signup-link {
+        color: black !important;
+        font-weight: 600;
+        font-family: 'Instrument Sans', sans-serif;
+        text-decoration: none;
+        padding: 10px 10px;
+        opacity: 0.7;   
+    }
+
 </style>
 
 <!-- JavaScript для відкриття/закриття Sidebar та Notification Window -->
 <script>
-  function toggleNav() {
-    const sidebar = document.getElementById("mySidebar");
-    sidebar.classList.toggle("open");
-  }
-
-  function closeNav() {
-    const sidebar = document.getElementById("mySidebar");
-    sidebar.classList.remove("open");
-  }
-
-  function toggleNotifications() {
-    const notificationWindow = document.getElementById("notificationWindow");
-    notificationWindow.style.display =
-      notificationWindow.style.display === "block" ? "none" : "block";
-  }
-
-  function closeNotifications() {
-    const notificationWindow = document.getElementById("notificationWindow");
-    notificationWindow.style.display = "none";
-  }
-
-  document.addEventListener("click", function (event) {
-    const sidebar = document.getElementById("mySidebar");
-    const menuBtn = document.querySelector(".menu-btn");
-    const notificationWindow = document.getElementById("notificationWindow");
-    const notificationIcon = document.querySelector(".notification-icon");
-
-    // Закриваємо меню, якщо клікнули за межами sidebar і кнопки
-    if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
-      sidebar.classList.remove("open");
+    function toggleNav() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.toggle("open");
     }
 
-    // Закриваємо вікно сповіщень, якщо клікнули за межами вікна і іконки
-    if (
-      !notificationWindow.contains(event.target) &&
-      !notificationIcon.contains(event.target)
-    ) {
-      notificationWindow.style.display = "none";
+    function closeNav() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.classList.remove("open");
     }
-  });
+
+    function toggleNotifications() {
+        const notificationWindow = document.getElementById("notificationWindow");
+        notificationWindow.style.display = notificationWindow.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function closeNotifications() {
+        const notificationWindow = document.getElementById("notificationWindow");
+        notificationWindow.style.display = 'none';
+    }
+
+    document.addEventListener("click", function(event) {
+        const sidebar = document.getElementById("mySidebar");
+        const menuBtn = document.querySelector(".menu-btn");
+        const notificationWindow = document.getElementById("notificationWindow");
+        const notificationIcon = document.querySelector(".notification-icon");
+
+        // Закриваємо меню, якщо клікнули за межами sidebar і кнопки
+        if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+            sidebar.classList.remove("open");
+        }
+
+        // Закриваємо вікно сповіщень, якщо клікнули за межами вікна і іконки
+        if (!notificationWindow.contains(event.target) && !notificationIcon.contains(event.target)) {
+            notificationWindow.style.display = 'none';
+        }
+    });
 </script>
