@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
 from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 # Create your views here.
 def showDemoPage(request):
@@ -42,3 +42,7 @@ def RegisterView(request):
 
 def UserView(request):
     return render(request, 'user_profile.html')
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home')
