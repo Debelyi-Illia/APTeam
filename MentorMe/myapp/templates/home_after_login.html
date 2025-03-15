@@ -35,6 +35,7 @@
       border: none;
       padding: 5px;
       margin-right: 10px;
+      outline: none; /* Прибирає виділення */
     }
 
     /* Search bar */
@@ -44,7 +45,7 @@
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      border: 1px solid #ccc;
+      border: 1px solid rgb(129, 129, 129);
       border-radius: 20px;
       padding: 5px 10px;
       background: white;
@@ -54,7 +55,7 @@
     .search-bar {
       display: flex;
       align-items: center;
-      border: 1px solid #ccc;
+      border: 1px solid rgb(129, 129, 129);
       border-radius: 20px;
       padding: 5px 10px;
       width: 40%;
@@ -75,7 +76,7 @@
       align-items: center;
       justify-content: center;
       font-size: 14px; /* Менший розмір */
-      color: #555;
+      color: #555555;
       padding: 2px;
     }
 
@@ -88,75 +89,6 @@
       padding: 2px;
       background: transparent;
       height: 100%;
-    }
-
-    /* Login & Sign up buttons */
-    .btn-login {
-      background-color: #007bff;
-      color: white !important;
-      border-radius: 25px;
-      padding: 5px 15px;
-    }
-
-    .btn-login:hover {
-      background-color: #0056b3;
-    }
-
-    .signup-link {
-      color: black !important;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 10px 10px;
-    }
-
-    .notification-icon {
-      font-size: 20px;
-      color: black;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      background-color: white;
-      overflow-x: hidden;
-      transition: width 0.4s ease-in-out;
-      padding-top: 60px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    }
-
-    .sidebar a {
-      padding: 10px 15px;
-      text-decoration: none;
-      font-size: 18px;
-      color: black;
-      display: block;
-      transition: 0.3s;
-      border-radius: 5px;
-    }
-
-    .sidebar a:hover {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .sidebar .closebtn {
-      position: absolute;
-      top: 20px;
-      right: 15px;
-      font-size: 36px;
-      background-color: #111;
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 10px 15px;
-      border-radius: 50%;
     }
 
     /*Main Content*/
@@ -270,10 +202,10 @@
       margin-top: 0px;
       margin-bottom: 0px;
       background-color: #c9e6ff;
-      height: 100vh;
+      height: 150vh;
       background-size: cover;
       text-align: center;
-      padding: 50px 20px;
+      padding: 112px 20px;
       color: black;
     }
 
@@ -285,6 +217,8 @@
     .btn-primary {
       border-radius: 25px;
       padding: 10px 10px;
+      font-size: 20px;
+      min-width: 200px;
     }
 
     /* Footer */
@@ -294,10 +228,11 @@
       text-align: center;
       color: white;
       width: 100%;
-      position: relative; /* Було fixed або absolute? */
+      position: relative;
       bottom: 0;
       left: 0;
       clear: both;
+      margin-top: auto; /* Додає автоматичний відступ зверху */
     }
 
     .fa {
@@ -336,7 +271,7 @@
     .search-container {
       width: 50%;
       margin: 100px auto;
-      text-align: center;
+      text-align: center; 
     }
 
     .search-box {
@@ -346,36 +281,59 @@
     .search-box input {
       width: 100%;
       padding: 10px 40px 10px 15px;
-      border-radius: 25px;
-      border: 1px solid #ccc;
+      border-radius: 10px;
+      border: 2px solid #ccc;
     }
 
     .search-box button {
+      height: 40px;
+      width: 40px;
       position: absolute;
-      background-color: #007bff;
-      right: 10px;
+      background-color: #3bc692;
+      right: 2.5px;
       top: 50%;
       transform: translateY(-50%);
       border: 4px #007bff;
-      border-radius: 50%;
+      border-radius: 10px;
       cursor: pointer;
       color: white;
     }
+
+    .custom-font h1{
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600; /* Semibold */
+    }
+
+    .custom-font h4{
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400; /* Regular */
+      opacity: 0.8;
+    }
+
+    .custom-font p{
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400; /* Regular */
+      opacity: 0.8;
+    } 
+
   </style>
 </head>
 
 <body onclick="closeNavOnClickOutside(event)">
 
-  {% include 'navbar.html' %}
+  {% include 'navbar_after_login.html' %}
 
   <br><br>
 
   <!-- Main Content -->
   <div class="main-content">
     <div class="jumbotron">
-      <h1>Welcome to <b>MentorMe</b></h1>
-      <p>Knowledge is key to success. Explore the distinct roles and responsibilities in the mentor-mentee relationship,<br>
-        understanding their unique contributions, benefits, and impacts on growth and success.</p>
+    <h1 class="custom-font">
+    <span style="color: #01AD6D;">Learn</span>.
+    <span style="color: #0072A9;">Mentor</span>.
+    <span style="color: black;">Succeed</span>.
+    </h1>
+    <h4 class="custom-font">Together, we build brighter futures.</h4>
       <div class="search-container">
         <h3>Search for mentees and mentors</h3>
         <form action="/search" method="GET">
@@ -449,6 +407,10 @@
         </div>
         <button class="scroll-btn right-btn" onclick="scrollRight()">&#10095;</button>
       </div>
+      <p class="custom-font">
+      Knowledge is key to success. Explore the distinct roles and responsibilities in the mentor-mentee relationship,<br>
+      understanding their unique contributions, benefits, and impacts on growth and success.
+    </p>
     </div>
   </div>
 
