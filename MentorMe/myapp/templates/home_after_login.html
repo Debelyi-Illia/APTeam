@@ -379,12 +379,32 @@
       <div class="search-container">
         <h3>Search for mentees and mentors</h3>
         <form action="/search" method="GET">
-          <div class="search-box">
-            <input type="text" name="query" placeholder="Enter your search..." required>
-            <button type="submit"><i class="fas fa-search"></i></button>
-          </div>
+            <div class="search-box">
+                <input type="text" name="query" placeholder="Enter your search..." required>
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
         </form>
       </div>
+
+      <div class="search-results">
+        {% if results %}
+            <h2>Results for "{{ query }}"</h2>
+            {% for user in results %}
+                <div class="user-card">
+                    <h3>{{ user.username }}</h3>
+                    <p><strong>Real Name:</strong> {{ user.user_real_name }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Role:</strong> {{ user.user_def_role }}</p>
+                    <p><strong>Phone:</strong> {{ user.user_phone }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% if query %}
+                <p>No results found for "{{ query }}".</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
       <a class="btn btn-primary btn-lg" href="/register">Take Admission</a>
 
       <br>

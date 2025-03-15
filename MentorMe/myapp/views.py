@@ -11,6 +11,9 @@ from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Create your views here.
 def showDemoPage(request):
@@ -68,3 +71,21 @@ def UserView(request):
 def custom_logout(request):
     logout(request)
     return redirect('home')
+
+def search_users(request):
+    query = request.GET.get('query', '')  # Отримуємо пошуковий запит
+    results = []
+
+    if query:
+        # Шукаємо користувачів за username або user_def_role
+        results = User.objects.filter(
+            username__icontains=query
+        ) | User.objects.filter(
+            user_def_role__icontains=query
+        )
+
+    context = {
+        'query': query,
+        'results': results,
+    }
+    return render(request, 'home_after_login.html', context)
