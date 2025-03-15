@@ -10,6 +10,7 @@ from django.conf import settings
 from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
 from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def showDemoPage(request):
@@ -21,7 +22,26 @@ def showHomePage(request):
     return render(request, "home.html") 
 
 def LoginView(request):
-    form = AuthenticationForm()
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # Отримуємо дані з форми
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            
+            # Автентифікуємо користувача
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                # Якщо користувач існує, виконуємо вхід
+                login(request, user)
+                return redirect('user_profile')  # Перенаправляємо на головну сторінку
+            else:
+                # Якщо автентифікація не вдалася, показуємо помилку
+                form.add_error(None, "Невірний логін або пароль")
+    else:
+        form = AuthenticationForm()
+    
     return render(request, 'login.html', {'form': form})
 
 def RegisterView(request):
