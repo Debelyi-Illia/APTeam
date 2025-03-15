@@ -220,7 +220,7 @@
                         <div class="card-block">
                             <h6 class="m-b-20">Name</h6>
                             <h2 class="text-right"><i class="fas fa-user-tie f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.first_name }}</span></p>
+                            <p><span style="font-size: 20px;">{{ request.user.username }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -240,7 +240,7 @@
                         <div class="card-block">
                             <h6 class="m-b-20">Roll</h6>
                             <h2 class="text-right"><i class="fas fa-list-ol f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ roll }}</span></p>
+                            <p><span style="font-size: 20px;">{{ request.user.user_def_role }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
                         <div class="card-block">
                             <h6 class="m-b-20">Join Date</h6>
                             <h2 class="text-right"><i class="fas fa-calendar-alt f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ fee }}</span></p>
+                            <p><span style="font-size: 20px;">{{ request.user.date_joined }}</span></p>
                         </div>
                     </div>
                 </div>

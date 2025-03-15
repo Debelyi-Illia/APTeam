@@ -3,10 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    user_name = models.CharField(max_length=150)
     user_real_name = models.CharField(max_length=150)
-    user_password = models.CharField(max_length=150)
-    user_email = models.EmailField()
     user_phone = models.CharField(max_length=20, blank=True, null=True)
     user_biography = models.TextField(blank=True, null=True)
     user_def_hours = models.IntegerField(default=0)

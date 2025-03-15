@@ -49,6 +49,8 @@ def RegisterView(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.user_def_role = "Ментор"
+            user.save()
             login(request, user)
             print(f"Користувач {user.username} успішно зареєстрований!")  # Повідомлення про успіх
             return redirect('home')  # Перенаправлення на головну сторінку після реєстрації
