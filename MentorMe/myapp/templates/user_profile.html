@@ -250,7 +250,7 @@
                         <div class="card-block">
                             <h6 class="m-b-20">Join Date</h6>
                             <h2 class="text-right"><i class="fas fa-calendar-alt f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.date_joined }}</span></p>
+                            <p><span style="font-size: 20px;">{{ request.user.date_joined|date:"d F Y" }}</span></p>
                         </div>
                     </div>
                 </div>
