@@ -181,8 +181,8 @@
     {% if results %}
       {% for result in results %}
         <div class="result-item">
-          <h3>{{ result.title }}</h3>
-          <p>{{ result.description }}</p>
+          <h3>{{ result.ad_title }}</h3>
+          <p>{{ result.ad_text_body }}</p>
           <a href="/ad/{{ result.id }}">View Ad</a>
         </div>
       {% endfor %}
