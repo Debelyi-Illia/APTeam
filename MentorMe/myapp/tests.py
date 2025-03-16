@@ -1,8 +1,10 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from myapp.models import User, Advertisement
+from myapp.forms import CustomUserCreationForm
 from django.utils import timezone
 from datetime import timedelta
+
 
 class LoginTests(TestCase):
     def setUp(self):
@@ -107,15 +109,101 @@ class SearchTests(TestCase):
         )
 
     def test_search_advertisements(self):
-        """Test the search functionality"""
+        """Перевірка функціональності пошуку"""
         response = self.client.get(self.search_url, {'query': 'body of ad 1'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'This is the body of ad 1')
         self.assertNotContains(response, 'This is the body of ad 2')
 
     def test_search_advertisements_by_role(self):
-        """Test the search functionality with role filter"""
+        """Перевірка функціональності пошуку з фільтром за роллю"""
         response = self.client.get(self.search_url, {'role': 'Mentee'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'This is the body of ad 1')
         self.assertNotContains(response, 'This is the body of ad 2')
+
+class RegisterViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.register_url = reverse('register')
+
+    def test_register_page_loads(self):
+        """Перевірка завантаження сторінки реєстрації"""
+        response = self.client.get(self.register_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertIsInstance(response.context['form'], CustomUserCreationForm)
+
+    def test_successful_registration(self):
+        """Перевірка успішної реєстрації з правильними даними"""
+        response = self.client.post(self.register_url, {
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': 'testpass123',
+            'password2': 'testpass123',
+            'first_name': 'New',
+            'last_name': 'User',
+        })
+        self.assertRedirects(response, reverse('user_profile'))
+        self.assertTrue(User.objects.filter(username='newuser').exists())
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_registration_with_empty_username(self):
+        """Перевірка реєстрації з порожнім ім'ям користувача"""
+        response = self.client.post(self.register_url, {
+            'username': '',
+            'email': 'newuser@example.com',
+            'password1': 'testpass123',
+            'password2': 'testpass123',
+            'first_name': 'New',
+            'last_name': 'User',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertFalse(User.objects.filter(email='newuser@example.com').exists())
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_registration_with_invalid_email(self):
+        """Перевірка невдалої реєстрації з неправильною електронною адресою"""
+        response = self.client.post(self.register_url, {
+            'username': 'newuser',
+            'email': 'invalidemail',
+            'password1': 'testpass123',
+            'password2': 'testpass123',
+            'first_name': 'New',
+            'last_name': 'User',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertFalse(User.objects.filter(username='newuser').exists())
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+    def test_registration_with_password_mismatch(self):
+        """Перевірка невдалої реєстрації з різними паролями"""
+        response = self.client.post(self.register_url, {
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': 'testpass123',
+            'password2': 'differentpass',
+            'first_name': 'New',
+            'last_name': 'User',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertFalse(User.objects.filter(username='newuser').exists())
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+    
+    def test_registration_with_empty_password(self):
+        """Перевірка невдалої реєстрації з порожніми паролями"""
+        response = self.client.post(self.register_url, {
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': '',
+            'password2': '',
+            'first_name': 'New',
+            'last_name': 'User',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertFalse(User.objects.filter(username='newuser').exists())
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
