@@ -123,13 +123,12 @@ def search_results(request):
     role = request.GET.get('role', '')
     subject = request.GET.get('subject', '')
 
-    results = Ad.objects.all()
-
+    results = Advertisement.objects.none()  
     if query:
-        results = results.filter(title__icontains=query) | results.filter(description__icontains=query)
+        results = Advertisement.objects.filter(ad_title__icontains=query) | Advertisement.objects.filter(ad_text_body__icontains=query)
     if role:
-        results = results.filter(category=role)
+        results = results.filter(ad_role=role)
     if subject:
-        results = results.filter(subject=subject)
+        results = results.filter(ad_subject=subject)
 
     return render(request, 'search.html', {'results': results})
