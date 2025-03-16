@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'myapp.User'
 
+APPEND_SLASH = False
 
 # Application definition
 
