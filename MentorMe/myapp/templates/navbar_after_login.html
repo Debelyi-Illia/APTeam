@@ -16,7 +16,6 @@
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
     <i class="fa fa-bell notification-icon" onclick="toggleNotifications()"></i>
-
     <!-- logout form post -->
     <form
       id="logout-form"
@@ -26,17 +25,9 @@
     <button type="submit" class="signup-link" style="border: none; background: none; color: black;">Log out</button>
       {% csrf_token %}
     </form>
-
-<<<<<<< HEAD
-    <a href="/user_profile" class="btn btn-login">@user_name</a>
-  </div>
-=======
-    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-        <i class="fa fa-bell notification-icon" onclick="toggleNotifications()"></i>
-        <a href="#" class="signup-link">Log out</a>
+    
         <a href="/user_profile" class="btn btn-login">@{{ user.username}}</a>
     </div>
->>>>>>> f9e7a3d33859938f7ddbdd45c8a70761a56e2d07
 </nav>
 
 <!-- Sidebar -->
