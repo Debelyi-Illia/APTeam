@@ -28,6 +28,5 @@ urlpatterns = [
     path('search/', views.search_advertisements, name='search'),
     path('ad/', views.AdView, name='ad'),
     path('create_ad/', views.create_ad, name='create_ad'),
-    path('search1/', views.search_advertisements, name='search1'),
 
 ]
