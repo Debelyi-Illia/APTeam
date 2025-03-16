@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -29,11 +30,13 @@ class Log(models.Model):
 
 class Advertisement(models.Model):
     ad_poster = models.ForeignKey(User, on_delete=models.CASCADE)
-    ad_hours = models.IntegerField()
-    ad_role = models.BooleanField()  # True for teacher, False for student
-    ad_subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    ad_name = models.CharField(max_length=150)
+    ad_start_time = models.DateTimeField(default=timezone.now)
+    ad_end_time = models.DateTimeField()
+    ad_role = models.CharField(max_length=150)
+    ad_subject = models.CharField(max_length=150)
+    ad_title = models.CharField(max_length=150)
     ad_text_body = models.TextField()
+    is_active = models.BooleanField(default=True)
 
 
 class Class(models.Model):
