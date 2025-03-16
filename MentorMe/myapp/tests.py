@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from myapp.models import User
+from myapp.models import User, Advertisement
+from django.utils import timezone
+from datetime import timedelta
 
 class LoginTests(TestCase):
     def setUp(self):
@@ -71,3 +73,49 @@ class LoginTests(TestCase):
         self.client.login(username='testuser', password='testpass123')
         response = self.client.get(self.login_url)
         self.assertRedirects(response, reverse('user_profile'))
+
+class SearchTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.search_url = reverse('search')
+        self.test_user = User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123',
+            first_name='Test',
+            last_name='User',
+        )
+        self.ad1 = Advertisement.objects.create(
+            ad_poster=self.test_user,
+            ad_title='Ad Title 1',
+            ad_role='Mentor',
+            ad_text_body='This is the body of ad 1',
+            ad_subject='Subject 1',
+            ad_start_time=timezone.now(),
+            ad_end_time=timezone.now() + timedelta(days=1),
+            is_active=True,
+        )
+        self.ad2 = Advertisement.objects.create(
+            ad_poster=self.test_user,
+            ad_title='Ad Title 2',
+            ad_role='Mentee',
+            ad_text_body='This is the body of ad 2',
+            ad_subject='Subject 2',
+            ad_start_time=timezone.now(),
+            ad_end_time=timezone.now() + timedelta(days=1),
+            is_active=True,
+        )
+
+    def test_search_advertisements(self):
+        """Test the search functionality"""
+        response = self.client.get(self.search_url, {'query': 'body of ad 1'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'This is the body of ad 1')
+        self.assertNotContains(response, 'This is the body of ad 2')
+
+    def test_search_advertisements_by_role(self):
+        """Test the search functionality with role filter"""
+        response = self.client.get(self.search_url, {'role': 'Mentee'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'This is the body of ad 1')
+        self.assertNotContains(response, 'This is the body of ad 2')
