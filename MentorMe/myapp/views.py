@@ -117,3 +117,19 @@ def create_ad(request):
         return redirect('home')
     else:
         return render(request, 'create_ad.html')
+
+def search_results(request):
+    query = request.GET.get('query', '')
+    role = request.GET.get('role', '')
+    subject = request.GET.get('subject', '')
+
+    results = Ad.objects.all()
+
+    if query:
+        results = results.filter(title__icontains=query) | results.filter(description__icontains=query)
+    if role:
+        results = results.filter(category=role)
+    if subject:
+        results = results.filter(subject=subject)
+
+    return render(request, 'search.html', {'results': results})
