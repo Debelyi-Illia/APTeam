@@ -58,32 +58,6 @@
       margin-right: 10px;
     }
 
-    /* Login & Sign up buttons */
-    .btn-login {
-      background-color: #007bff;
-      color: white !important;
-      border-radius: 25px;
-      padding: 5px 15px;
-    }
-
-    .btn-login:hover {
-      background-color: #0056b3;
-    }
-
-    .signup-link {
-      color: black !important;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 10px 10px;
-    }
-
-    .notification-icon {
-      font-size: 20px;
-      color: black;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-
     /* Sidebar */
     .sidebar {
       height: 100%;
@@ -160,20 +134,25 @@
     .fa-whatsapp { background: #25D366; color: white; }
 
     .form-content {
+      background-color: white; /* Білий фон для форми */
       padding: 6%;
       border: 1px solid #ced4da;
       margin-bottom: 5%;
       text-align: center;
       max-width: 600px; /* Щоб не розтягувалась */
       margin: auto; /* Центрування */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додаємо тінь для виділення */
     }
 
     .form-group {
       text-align: left; /* Щоб текстове поле і підписи виглядали добре */
+      margin-bottom: 20px; /* Збільшуємо відступ між полями */
     }
 
     .form-control {
       border-radius: 1.5rem;
+      border: 1px solid #555555; /* Сильніше виділення полів */
+      padding: 10px; /* Додаємо внутрішній відступ */
     }
 
     .btnSubmit {
@@ -182,8 +161,9 @@
       padding: 2%;
       width: 60%;
       cursor: pointer;
-      background: #0062cc;
+      background: #2491c6;
       color: #fff;
+      margin-top: 20px; /* Збільшуємо відступ між кнопкою та полями */
     }
 
     .bs-example {
@@ -228,12 +208,16 @@
     .note {
       background: linear-gradient(45deg, #007bff, #00d4ff);
       color: white;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 10px 10px 0 0; /* Заокруглення тільки у верхніх краях */
       margin-bottom: 20px;
       max-width: 600px;
+      max-height: 86px;
       margin: auto;
+      display: flex;
+      justify-content: center; /* Вирівнювання по центру горизонтально */
     }
+
   </style>
 </head>
 
@@ -248,7 +232,7 @@
     <div class="container register-form">
       <div class="form">
         <div class="note">
-          <p style="text-align: center; font-weight: bold; font-size: 35px;">Log in</p>
+          <p style="text-align: center; font-weight: bold; font-size: 35px;">Log In</p>
         </div>
 
         <div class="form-content">
@@ -260,6 +244,7 @@
           </div>
           <button type="submit" class="btnSubmit">Login</button>
           <div class="text-center">Do not have account? <a href="/register">Sign up here</a></div>
+        <br>
         </div>
       </div>
     </div>
