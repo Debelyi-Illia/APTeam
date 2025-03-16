@@ -233,13 +233,13 @@
         <h3>{{ request.user.username }}</h3>
         <ul>
             <li><a href="/"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a href="/user_profile"><i class="fa fa-user"></i> User</a></li>
-            <li><a href="#"><i class="fa fa-chalkboard-teacher"></i> Profile</a></li>
-            <li><a href="#"><i class="fa fa-graduation-cap"></i> My Ads</a></li>
+            <li><a href="#" class="tab-link" data-tab="user"><i class="fa fa-user"></i> User</a></li>
+            <li><a href="#" class="tab-link" data-tab="profile"><i class="fa fa-chalkboard-teacher"></i> Profile</a></li>
+            <li><a href="#" class="tab-link" data-tab="my-ads"><i class="fa fa-graduation-cap"></i> My Ads</a></li>
         </ul>
     </div>
 
-    <div class="main-content">
+    <div id="user" class="tab-content active main-content">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -424,6 +424,15 @@
     </div>
     <div class="tooltip"></div>
 
+    <div id="profile" class="tab-content main-content">
+        <h3>Profile</h3>
+        <p>NO DATE</p>
+    </div>
+    
+    <div id="my-ads" class="tab-content main-content">
+        {% include 'own_ads.html' %}
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>
@@ -487,6 +496,7 @@
                 });
             });
         });
+        
         function toggleNav() {
             const sidebar = document.getElementById("mySidebar");
             sidebar.classList.toggle("open");
