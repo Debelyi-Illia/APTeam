@@ -100,7 +100,7 @@ def create_ad(request):
         description = request.POST.get('description')
         start_time = request.POST.get('start_time')
         end_time = request.POST.get('end_time')
-        subject = request.Post.get('subject')
+        subject = request.POST.get('subject')
 
         ad = Advertisement(
             ad_poster=request.user,
