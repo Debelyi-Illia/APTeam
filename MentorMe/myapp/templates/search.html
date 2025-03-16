@@ -153,6 +153,7 @@
         <div class="form-group col-md-4">
           <label for="role">Looking for</label>
           <select class="form-control" id="role" name="role">
+            <option value="any" {% if request.GET.role == "any" %}selected{% endif %}>Any</option>
             <option value="mentor" {% if request.GET.role == "mentor" %}selected{% endif %}>Mentor</option>
             <option value="student" {% if request.GET.role == "student" %}selected{% endif %}>Student</option>
           </select>
