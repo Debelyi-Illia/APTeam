@@ -73,18 +73,19 @@ def custom_logout(request):
 
 def search_advertisements(request):
     query = request.GET.get('query', '')
+    role = request.GET.get('role', '')
     results = []
 
     if query:
         results = Advertisement.objects.filter(
-            Q(ad_text_body__icontains=query)
-        )
+            Q(ad_text_body__icontains=query) |
+            Q(ad_subject__icontains=query)
+        ) 
 
-    context = {
-        'query': query,
-        'results': results,
-    }
-    return render(request, 'home_after_login.html', context)
+    if role:
+        results = results.exclude(ad_role__iexact=role)
+        
+    return render(request, 'search.html', {'results': results})
 
 def AdView(request):
     if request.user.is_authenticated:
@@ -118,17 +119,3 @@ def create_ad(request):
     else:
         return render(request, 'create_ad.html')
 
-def search_results(request):
-    query = request.GET.get('query', '')
-    role = request.GET.get('role', '')
-    subject = request.GET.get('subject', '')
-
-    results = Advertisement.objects.none()  
-    if query:
-        results = Advertisement.objects.filter(ad_title__icontains=query) | Advertisement.objects.filter(ad_text_body__icontains=query)
-    if role:
-        results = results.filter(ad_role=role)
-    if subject:
-        results = results.filter(ad_subject=subject)
-
-    return render(request, 'search.html', {'results': results})
