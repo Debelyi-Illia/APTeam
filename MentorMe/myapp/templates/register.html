@@ -28,32 +28,6 @@
       margin-left: 250px;
     }
 
-    /* Login & Sign up buttons */
-    .btn-login {
-      background-color: #007bff;
-      color: white !important;
-      border-radius: 25px;
-      padding: 5px 15px;
-    }
-
-    .btn-login:hover {
-      background-color: #0056b3;
-    }
-
-    .signup-link {
-      color: black !important;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 10px 10px;
-    }
-
-    .notification-icon {
-      font-size: 20px;
-      color: black;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-
     /* Footer */
     footer {
       background-color: black;
@@ -87,20 +61,25 @@
     .fa-whatsapp { background: #25D366; color: white; }
 
     .form-content {
+      background-color: white; /* Білий фон для форми */
       padding: 6%;
       border: 1px solid #ced4da;
       margin-bottom: 5%;
       text-align: center;
       max-width: 600px; /* Щоб не розтягувалась */
       margin: auto; /* Центрування */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Додаємо тінь для виділення */
     }
 
     .form-group {
       text-align: left; /* Щоб текстове поле і підписи виглядали добре */
+      margin-bottom: 20px; /* Збільшуємо відступ між полями */
     }
 
     .form-control {
       border-radius: 1.5rem;
+      border: 1px solid #555555; /* Сильніше виділення полів */
+      padding: 10px; /* Додаємо внутрішній відступ */
     }
 
     .btnSubmit {
@@ -109,8 +88,9 @@
       padding: 2%;
       width: 60%;
       cursor: pointer;
-      background: #0062cc;
+      background: #2491c6;
       color: #fff;
+      margin-top: 20px; /* Збільшуємо відступ між кнопкою та полями */
     }
 
     .bs-example {
@@ -129,52 +109,52 @@
       display: flex;
       align-items: center;
       width: 100%;
-  }
-  
-  .input-group .form-control {
+    }
+
+    .input-group .form-control {
       flex: 1;
       border-radius: 10px;
       height: 40px;
-  }
-  
-  .input-group-append {
+    }
+
+    .input-group-append {
       display: flex;
       align-items: center;
-  }
-  
-  .input-group-append .btn {
+    }
+
+    .input-group-append .btn {
       height: 40px; /* Встановлює висоту таку ж, як у поля вводу */
       border-radius: 0 10px 10px 0; /* Закруглення правого краю */
       padding: 5px 10px;
-  }
+    }
 
-  .password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
+    .password-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
 
-  .password-container .password-field {
-    width: 100%;
-    padding-right: 40px; /* Додаємо простір для іконки */
-    border-radius: 20px;
-    height: 40px;
-  }
+    .password-container .password-field {
+      width: 100%;
+      padding-right: 40px; /* Додаємо простір для іконки */
+      border-radius: 20px;
+      height: 40px;
+    }
 
-  .password-container .toggle-password {
-    position: absolute;
-    right: 10px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 5px;
-  }
+    .password-container .toggle-password {
+      position: absolute;
+      right: 10px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 5px;
+    }
 
-  .password-container .toggle-password i {
-    font-size: 18px;
-    color: #777;
-  }
+    .password-container .toggle-password i {
+      font-size: 18px;
+      color: #777;
+    }
 
     .jumbotron h1 {
       text-align: center;
@@ -206,11 +186,15 @@
     .note {
       background: linear-gradient(45deg, #007bff, #00d4ff);
       color: white;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 10px 10px 0 0; /* Заокруглення тільки у верхніх краях */
       margin-bottom: 20px;
       max-width: 600px;
+      max-height: 86px;
       margin: auto;
+      display: flex;
+      align-items: center; /* Вирівнювання по центру вертикально */
+      justify-content: center; /* Вирівнювання по центру горизонтально */
     }
   </style>
 </head>
@@ -225,7 +209,7 @@
     <div class="container register-form">
       <div class="form">
         <div class="note">
-          <p style="text-align: center; font-weight: bold; font-size: 35px;">Register</p>
+          <p style="text-align: center; font-weight: bold; font-size: 35px;">Sign Up</p>
         </div>
 
         <div class="form-content">
@@ -253,6 +237,7 @@
           </div>
           <button type="submit" class="btnSubmit">Take Admission</button>
           <div class="text-center">Already have an account? <a href="/login">Login here</a></div>
+        <br>
         </div>
       </div>
     </div>
