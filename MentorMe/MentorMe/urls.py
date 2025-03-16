@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout/', views.custom_logout, name='logout'),
     path('search/', views.search_advertisements, name='search_advertisements'),
     path('ad/', views.AdView, name='ad'),
+    path('create_ad/', views.create_ad, name='create_ad'),
 
 ]

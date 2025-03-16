@@ -91,3 +91,29 @@ def AdView(request):
         return render(request, 'ad.html')
     else:
         return redirect('login')
+    
+@login_required
+def create_ad(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        description = request.POST.get('description')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        subject = request.Post.get('subject')
+
+        ad = Advertisement(
+            ad_poster=request.user,
+            ad_title=title,
+            ad_role=category,
+            ad_text_body=description,
+            ad_start_time=start_time,
+            ad_end_time=end_time,
+            ad_subject=subject,
+            is_active=True,
+        )
+        ad.save()
+
+        return redirect('home')
+    else:
+        return render(request, 'create_ad.html')
