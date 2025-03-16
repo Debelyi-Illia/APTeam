@@ -5,10 +5,15 @@ from django.contrib.auth import get_user_model
 from .models import User, Subject, LogType, Log, Advertisement, Class
 
 class DBHandler:
+    """
+    Клас для взаємодії з базою даних, включає базові CRUD операції (створення, читання, оновлення, видалення)
+    з додатковими перевірками на безпеку та права доступу.
+    """
     def __init__(self, user):
         self.user = user
 
     def check_for_injections(self, query):
+        """ Перевіряє SQL-запити на наявність потенційно небезпечних ін'єкцій """
         dangerous_patterns = [
             r";--", r"--", r";", r"\b(OR|AND)\b.*\b(=|LIKE)\b", 
             r"UNION.*SELECT", r"DROP TABLE", r"ALTER TABLE", 
@@ -19,6 +24,7 @@ class DBHandler:
                 raise ValueError("Запит містить потенційну SQL-ін'єкцію.")
 
     def check_user_permissions(self, action):
+        """ Перевіряє права користувача на виконання операції """
         if not self.user.is_authenticated:
             raise PermissionDenied("Користувач не автентифікований.")
         
@@ -29,6 +35,7 @@ class DBHandler:
             raise PermissionDenied("Недостатньо прав для виконання операції.")
 
     def write(self, model, data):
+        """ Додає новий запис у базу даних """
         self.check_user_permissions('write')
         if not issubclass(model, models.Model):
             raise ValueError("Переданий об'єкт не є моделлю Django.")
@@ -36,6 +43,7 @@ class DBHandler:
         return instance
 
     def read(self, model, filters=None):
+        """ Читає записи з бази даних з можливістю фільтрації """
         self.check_user_permissions('read')
         if not issubclass(model, models.Model):
             raise ValueError("Переданий об'єкт не є моделлю Django.")
@@ -46,6 +54,7 @@ class DBHandler:
         return query
 
     def update(self, model, filters, update_data):
+        """ Оновлює записи в базі даних """
         self.check_user_permissions('update')
         if not issubclass(model, models.Model):
             raise ValueError("Переданий об'єкт не є моделлю Django.")
@@ -54,6 +63,7 @@ class DBHandler:
         return updated_count
 
     def delete(self, model, filters):
+        """ Видаляє записи з бази даних """
         self.check_user_permissions('delete')
         if not issubclass(model, models.Model):
             raise ValueError("Переданий об'єкт не є моделлю Django.")
