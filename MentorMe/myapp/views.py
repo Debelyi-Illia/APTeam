@@ -7,11 +7,14 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
+
+from myapp.models import Advertisement
 from .forms import CustomUserCreationForm
 from django.core.mail import send_mail
 from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -73,11 +76,7 @@ def search_users(request):
     results = []
 
     if query:
-        results = User.objects.filter(
-            username__icontains=query
-        ) | User.objects.filter(
-            user_def_role__icontains=query
-        )
+        results = search_advertisements(query)
 
     context = {
         'query': query,
@@ -90,3 +89,10 @@ def AdView(request):
         return render(request, 'ad.html')
     else:
         return redirect('login')
+    
+def search_advertisements(query):
+    if query:
+        return Advertisement.objects.filter(
+            Q(ad_text_body__icontains=query)
+        )
+    return Advertisement.objects.none()
