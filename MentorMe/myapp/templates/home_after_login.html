@@ -346,13 +346,10 @@
       <div class="search-results">
         {% if results %}
             <h2>Results for "{{ query }}"</h2>
-            {% for user in results %}
+            {% for ad in results %}
                 <div class="user-card">
-                    <h3>{{ user.username }}</h3>
-                    <p><strong>Real Name:</strong> {{ user.user_real_name }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>Role:</strong> {{ user.user_def_role }}</p>
-                    <p><strong>Phone:</strong> {{ user.user_phone }}</p>
+                    <h3>{{ ad.ad_poster.username }}</h3>
+                    <p><strong>Description:</strong> {{ ad.ad_text_body }}</p>
                 </div>
             {% endfor %}
         {% else %}

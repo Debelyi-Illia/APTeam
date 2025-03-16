@@ -71,12 +71,14 @@ def custom_logout(request):
     logout(request)
     return redirect('home')
 
-def search_users(request):
+def search_advertisements(request):
     query = request.GET.get('query', '')
     results = []
 
     if query:
-        results = search_advertisements(query)
+        results = Advertisement.objects.filter(
+            Q(ad_text_body__icontains=query)
+        )
 
     context = {
         'query': query,
@@ -89,10 +91,3 @@ def AdView(request):
         return render(request, 'ad.html')
     else:
         return redirect('login')
-    
-def search_advertisements(query):
-    if query:
-        return Advertisement.objects.filter(
-            Q(ad_text_body__icontains=query)
-        )
-    return Advertisement.objects.none()
