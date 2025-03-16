@@ -74,15 +74,13 @@ def custom_logout(request):
 def search_advertisements(request):
     query = request.GET.get('query', '')
     role = request.GET.get('role', '')
-    results = []
+    results = Advertisement.objects.all()
 
     if query:
-        results = Advertisement.objects.filter(
+        results = results.filter(
             Q(ad_text_body__icontains=query) |
             Q(ad_subject__icontains=query)
         ) 
-    else:
-        results = Advertisement.objects
 
     if role:
         results = results.exclude(ad_role__iexact=role)
