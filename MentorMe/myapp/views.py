@@ -28,19 +28,15 @@ def LoginView(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            # Отримуємо дані з форми
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             
-            # Автентифікуємо користувача
             user = authenticate(request, username=username, password=password)
             
             if user is not None:
-                # Якщо користувач існує, виконуємо вхід
                 login(request, user)
-                return redirect('user_profile')  # Перенаправляємо на головну сторінку
+                return redirect('user_profile')
             else:
-                # Якщо автентифікація не вдалася, показуємо помилку
                 form.add_error(None, "Невірний логін або пароль")
     else:
         form = AuthenticationForm()
@@ -55,12 +51,12 @@ def RegisterView(request):
             user.user_def_role = "Mentor"
             user.save()
             login(request, user)
-            print(f"Користувач {user.username} успішно зареєстрований!")  # Повідомлення про успіх
-            return redirect('user_profile')  # Перенаправлення на головну сторінку після реєстрації
+            print(f"Користувач {user.username} успішно зареєстрований!")
+            return redirect('user_profile')
         else:
-            print("Помилки валідації форми:")  # Виведення помилок валідації
+            print("Помилки валідації форми:")
             for field, errors in form.errors.items():
-                print(f"Поле {field}: {', '.join(errors)}")  # Виведення помилок для кожного поля
+                print(f"Поле {field}: {', '.join(errors)}")
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -73,11 +69,10 @@ def custom_logout(request):
     return redirect('home')
 
 def search_users(request):
-    query = request.GET.get('query', '')  # Отримуємо пошуковий запит
+    query = request.GET.get('query', '')
     results = []
 
     if query:
-        # Шукаємо користувачів за username або user_def_role
         results = User.objects.filter(
             username__icontains=query
         ) | User.objects.filter(
