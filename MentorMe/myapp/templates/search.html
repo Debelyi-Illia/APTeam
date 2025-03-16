@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background-color: #c9e6ff;
+      font-family: 'Roboto', sans-serif;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .search-results-container {
+      width: 80%;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-results-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-results-container .result-item {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .search-results-container .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .search-results-container .result-item h3 {
+      margin: 0;
+    }
+
+    .search-results-container .result-item p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .search-results-container .result-item a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .search-results-container .result-item a:hover {
+      text-decoration: underline;
+    }
+
+    .search-results-container .advanced-search {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .search-results-container .advanced-search a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .search-results-container .advanced-search a:hover {
+      text-decoration: underline;
+    }
+
+    .advanced-search-form {
+      margin-bottom: 20px;
+    }
+
+    .advanced-search-form .form-group {
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: black;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      left: 0;
+      clear: both;
+      margin-top: auto; /* Додає автоматичний відступ зверху */
+    }
+
+    .fa {
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: #E1306C;
+      color: white;
+    }
+
+    .fa-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+  </style>
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+
+  <br><br>
+  <div class="search-results-container">
+    <h2>Search Results</h2>
+
+    <form class="advanced-search-form" action="/search_results" method="GET">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="query">Search</label>
+          <input type="text" class="form-control" id="query" name="query" value="{{ request.GET.query }}">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="role">Role</label>
+          <select class="form-control" id="role" name="role">
+            <option value="">Any</option>
+            <option value="teacher" {% if request.GET.role == "teacher" %}selected{% endif %}>Teacher</option>
+            <option value="mentor" {% if request.GET.role == "mentor" %}selected{% endif %}>Mentor</option>
+            <option value="study_group" {% if request.GET.role == "study_group" %}selected{% endif %}>Study Group</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="subject">Subject</label>
+          <select class="form-control" id="subject" name="subject">
+            <option value="">Any</option>
+            <option value="math" {% if request.GET.subject == "math" %}selected{% endif %}>Mathematics</option>
+            <option value="english" {% if request.GET.subject == "english" %}selected{% endif %}>English</option>
+            <option value="physics" {% if request.GET.subject == "physics" %}selected{% endif %}>Physics</option>
+            <option value="chemistry" {% if request.GET.subject == "chemistry" %}selected{% endif %}>Chemistry</option>
+            <option value="history" {% if request.GET.subject == "history" %}selected{% endif %}>History</option>
+            <option value="biology" {% if request.GET.subject == "biology" %}selected{% endif %}>Biology</option>
+            <option value="geography" {% if request.GET.subject == "geography" %}selected{% endif %}>Geography</option>
+            <option value="computer_science" {% if request.GET.subject == "computer_science" %}selected{% endif %}>Computer Science</option>
+            <option value="other" {% if request.GET.subject == "other" %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if results %}
+      {% for result in results %}
+        <div class="result-item">
+          <h3>{{ result.title }}</h3>
+          <p>{{ result.description }}</p>
+          <a href="/ad/{{ result.id }}">View Ad</a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No results found for your query.</p>
+    {% endif %}
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
+      <a href="https://api.whatsapp.com/send" class="fa fa-whatsapp"></a>
+      <a href="https://instagram.com/sumit.luv/" class="fa fa-instagram"></a>
+      <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+            <p>Made in Ukraine <br> Copyright &copy; 2025 APTeam </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
