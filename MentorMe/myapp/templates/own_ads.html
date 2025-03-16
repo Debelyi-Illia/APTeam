@@ -1,0 +1,74 @@
+<div class="container">
+    <h2 class="text-center my-4">My Ads</h2>
+    {% if ads %}
+        <div class="row">
+            {% for ad in ads %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ad.ad_title }}</h5>
+                            <p class="card-text">{{ ad.ad_text_body|truncatewords:20 }}</p>
+                            <p class="card-text"><small class="text-muted">Role: {{ ad.ad_role }}</small></p>
+                            <p class="card-text"><small class="text-muted">Subject: {{ ad.ad_subject }}</small></p>
+                            <p class="card-text"><small class="text-muted">Start Time: {{ ad.ad_start_time }}</small></p>
+                            <p class="card-text"><small class="text-muted">End Time: {{ ad.ad_end_time }}</small></p>
+                            <a href="{% url 'ad_detail' ad.id %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">You have no ads.</p>
+    {% endif %}
+</div>
+
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    footer {
+        background-color: black;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        width: 100%;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        clear: both;
+        margin-top: auto; /* Додає автоматичний відступ зверху */
+      }
+</style>
