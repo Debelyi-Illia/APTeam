@@ -81,10 +81,12 @@ def search_advertisements(request):
             Q(ad_text_body__icontains=query) |
             Q(ad_subject__icontains=query)
         ) 
+    else:
+        results = Advertisement.objects
 
     if role:
         results = results.exclude(ad_role__iexact=role)
-        
+
     return render(request, 'search.html', {'results': results})
 
 def AdView(request):
