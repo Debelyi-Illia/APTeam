@@ -9,9 +9,9 @@
     </a>
 
     <!-- Search Bar -->
-    <form class="search-bar">
+    <form class="search-bar" action="{% url 'search' %}" method="GET">
         <span class="search-icon"><i class="fa fa-search"></i></span>
-        <input type="text" class="search-input" placeholder="Search">
+        <input type="text" class="search-input" name="query" placeholder="Search">
     </form>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
