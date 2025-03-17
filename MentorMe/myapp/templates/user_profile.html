@@ -16,7 +16,7 @@
     <script> new WOW().init(); </script>
 
     <style type="text/css">
-       body {
+        body {
             background-color: #f4f4f4;
             font-family: 'Roboto', sans-serif;
             color: #333;
@@ -47,7 +47,7 @@
             color: black;
             padding-top: 5px;
             position: fixed;
-            z-index: 1000;
+            z-index: 500;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             top: 60px; /* Щоб не було відступів між navbar і боковим меню */
         }
@@ -57,7 +57,7 @@
             height: 100px;
             border-radius: 50%;
             margin: 20px auto;
-            background-color: #555; /* Заглушка для зображення */
+            background-color: #555555; /* Заглушка для зображення */
         }
 
         .infobar h3 {
@@ -89,6 +89,7 @@
             margin-left: 250px;
             padding: 20px;
             margin-top: 80px; /* Щоб елементи не були занадто високо */
+            position: relative;
         }
 
         .card {
@@ -146,6 +147,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+
         }
       
         .fa-facebook { background: #3B5998; color: white; }
@@ -210,9 +212,8 @@
         
         .tooltip {
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: black;
             color: white;
-            width: 200px;
             padding: 8px 12px;
             border-radius: 5px;
             font-size: 14px;
@@ -220,6 +221,18 @@
             z-index: 9999;
             display: none;
             white-space: nowrap;
+        }
+        
+        .tooltip strong {
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
