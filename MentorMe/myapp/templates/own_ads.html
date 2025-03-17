@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="popup"
   id="popup"
   style="
@@ -33,7 +33,7 @@
       <p class="popup-end" id="popup-end"></p>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="container" style="position: block">
   <h2 class="text-center my-4">My Ads</h2>
@@ -43,24 +43,23 @@
     <div class="col-md-4">
       <div
         class="card mb-4 shadow-sm"
-        style="cursor: pointer"
         onclick="showPopup('{{ ad.ad_title }}', '{{ ad.ad_text_body }}', '{{ ad.ad_role }}', '{{ ad.ad_subject }}', '{{ ad.ad_start_time }}', '{{ ad.ad_end_time }}')"
       >
         <div class="card-body">
           <h5 class="card-title">{{ ad.ad_title }}</h5>
-          <!-- <p class="card-text">{{ ad.ad_text_body|truncatewords:20 }}</p> -->
-          <!-- <p class="card-text">
+          <p class="card-text">{{ ad.ad_text_body|truncatewords:20 }}</p>
+          <p class="card-text">
             <small class="text-muted">Looking for: {{ ad.ad_role }}</small>
-          </p> -->
+          </p>
           <p class="card-text">
             <small class="text-muted">Subject: {{ ad.ad_subject }}</small>
           </p>
           <p class="card-text">
             <small class="text-muted">Start Time: {{ ad.ad_start_time|date:"d F Y" }}</small>
           </p>
-          <!-- <p class="card-text">
+          <p class="card-text">
             <small class="text-muted">End Time: {{ ad.ad_end_time }}</small>
-          </p> -->
+          </p>
         </div>
       </div>
     </div>
@@ -121,7 +120,7 @@
   }
 </style>
 
-<script>
+<!-- <script>
   function showPopup(title, textBody, role, subject, startTime, endTime) {
     const popup = document.getElementById("popup");
     popup.style.display = "block";
@@ -137,4 +136,4 @@
     const popup = document.getElementById("popup");
     popup.style.display = "none";
   }
-</script>
+</script> -->
