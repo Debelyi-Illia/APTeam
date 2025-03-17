@@ -65,7 +65,11 @@ def RegisterView(request):
 
 def UserView(request):
     if request.user.is_authenticated:
-        return render(request, 'user_profile.html')
+        ads = Advertisement.objects.filter(ad_poster=request.user)
+        context = {
+            'ads': ads,
+        }
+        return render(request, 'user_profile.html', context)
     else:
         return redirect('login')
 
