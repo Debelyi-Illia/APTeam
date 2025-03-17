@@ -138,7 +138,11 @@
 </head>
 
 <body>
-  {% include 'navbar.html' %}
+  {% if user.is_authenticated %}
+    {% include 'navbar_after_login.html' %}
+  {% else %}
+    {% include 'navbar.html' %}
+  {% endif%}
 
   <br><br>
   <div class="search-results-container">
