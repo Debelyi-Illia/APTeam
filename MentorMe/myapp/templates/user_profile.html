@@ -21,37 +21,38 @@
             font-family: 'Roboto', sans-serif;
             color: #333;
         }
-
+        
         .btn-login {
             background-color: #007bff;
             color: white !important;
             border-radius: 25px;
             padding: 5px 15px;
         }
-
+        
         .btn-login:hover {
             background-color: #0056b3;
         }
-
+        
         .signup-link {
             color: black !important;
             font-weight: bold;
             text-decoration: none;
             padding: 10px 10px;
         }
-
+        
         .infobar {
             width: 250px;
-            height: 100vh;
+            height: calc(100vh - 60px); /* Висота вікна мінус висота navbar */
             background-color: white;
             color: black;
             padding-top: 5px;
             position: fixed;
-            z-index: 500;
+            z-index: 400;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             top: 60px; /* Щоб не було відступів між navbar і боковим меню */
+            overflow-y: auto; /* Додаємо прокрутку */
         }
-
+        
         .infobar .profile-image {
             width: 100px;
             height: 100px;
@@ -59,18 +60,18 @@
             margin: 20px auto;
             background-color: #555555; /* Заглушка для зображення */
         }
-
+        
         .infobar h3 {
             text-align: center;
             margin-bottom: 20px;
         }
-
+        
         .infobar ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
+        
         .infobar li a {
             padding: 10px 13px; /* Зменшення відстані між елементами в 1.5 рази */
             text-decoration: none;
@@ -79,50 +80,78 @@
             display: block;
             transition: 0.3s;
         }
-
+        
         .infobar li a:hover {
             background-color: #007bff;
             color: white;
         }
-
+        
         .main-content {
             margin-left: 250px;
             padding: 20px;
             margin-top: 80px; /* Щоб елементи не були занадто високо */
             position: relative;
         }
-
+        
         .card {
             border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
+        
         .card-block {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
-
+        
         .card-block h6 {
-            font-size: 18px;
+            font-size: 16px; /* Зменшено розмір шрифту */
             margin-bottom: 10px;
         }
-
-        .card-block h2 {
-            font-size: 36px;
+        
+        .card-block .icon-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px; /* Зменшено розмір шрифту */
             margin-bottom: 10px;
+            max-width: 100%; /* Додаємо обмеження ширини */
+            white-space: nowrap; /* Забороняємо перенос тексту */
+            overflow: hidden; /* Приховуємо текст, що не поміщається */
+            text-overflow: ellipsis; /* Додаємо три крапки для обрізаного тексту */
         }
-
+        
+        .card-block .icon-text i {
+            margin-right: 10px;
+        }
+        
         .card-block p {
-            font-size: 20px;
+            font-size: 14px; /* Зменшено розмір шрифту */
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
-
+        
+        .card-block p span {
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
         .bg-c-blue { background: linear-gradient(45deg, #4099ff, #73b4ff); color: white; }
         .bg-c-green { background: linear-gradient(45deg, #2ed8b6, #59e0c5); color: white; }
         .bg-c-yellow { background: linear-gradient(45deg, #FFB64D, #ffcb80); color: white; }
         .bg-c-pink { background: linear-gradient(45deg, #FF5370, #ff869a); color: white; }
-
+        
         footer {
             background-color: black;
             padding: 20px;
@@ -135,7 +164,7 @@
             clear: both;
             margin-top: auto; /* Додає автоматичний відступ зверху */
         }
-
+        
         .fa {
             font-size: 20px;
             width: 40px;
@@ -147,25 +176,26 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-
         }
-      
+        
         .fa-facebook { background: #3B5998; color: white; }
         .fa-twitter { background: #55ACEE; color: white; }
         .fa-instagram { background: #E1306C; color: white; }
         .fa-whatsapp { background: #25D366; color: white; }
-
+        
         /* Schedule */
         .schedule {
             margin-top: 20px;
             background-color: #e0f7fa;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
+            overflow-x: auto; /* Додаємо горизонтальну прокрутку */
         }
         
         .schedule table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 800px; /* Встановлюємо мінімальну ширину для таблиці */
         }
         
         .schedule th, .schedule td {
@@ -226,14 +256,14 @@
         .tooltip strong {
             font-weight: bold;
         }
-
+        
         .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
             display: block;
         }
-
-        /* .tab-content.active {
-            display: block;
-        } */
     </style>
 </head>
 
@@ -260,38 +290,50 @@
                     <div class="card bg-c-blue order-card">
                         <div class="card-block">
                             <h6 class="m-b-20">Name</h6>
-                            <h2 class="text-right"><i class="fas fa-user-tie f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.username }}</span></p>
+                            <div class="icon-text">
+                                <i class="fas fa-user-tie"></i>
+                                <span>{{ request.user.username }}</span>
+                            </div>
+                            <p>Active User</p> 
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col-md-3">
                     <div class="card bg-c-green order-card">
                         <div class="card-block">
                             <h6 class="m-b-20">Email</h6>
-                            <h2 class="text-right"><i class="fas fa-envelope f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.email }}</span></p>
+                            <div class="icon-text">
+                                <i class="fas fa-envelope"></i>
+                                <span>{{ request.user.email }}</span>
+                            </div>
+                            <p>Verified Email</p> 
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col-md-3">
                     <div class="card bg-c-yellow order-card">
                         <div class="card-block">
-                            <h6 class="m-b-20">Roll</h6>
-                            <h2 class="text-right"><i class="fas fa-list-ol f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.user_def_role }}</span></p>
+                            <h6 class="m-b-20">Role</h6>
+                            <div class="icon-text">
+                                <i class="fas fa-list-ol"></i>
+                                <span>{{ request.user.user_def_role }}</span>
+                            </div>
+                            <p>Assigned Role</p> 
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col-md-3">
                     <div class="card bg-c-pink order-card">
                         <div class="card-block">
                             <h6 class="m-b-20">Join Date</h6>
-                            <h2 class="text-right"><i class="fas fa-calendar-alt f-left"></i></h2>
-                            <p><span style="font-size: 20px;">{{ request.user.date_joined|date:"d F Y" }}</span></p>
+                            <div class="icon-text">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>{{ request.user.date_joined|date:"d F Y" }}</span>
+                            </div>
+                            <p>Member Since</p> 
                         </div>
                     </div>
                 </div>
@@ -436,7 +478,7 @@
             </div>
         </div>
     </div>
-    <div class="tooltip"></div>
+    
 
     <div id="profile" class="tab-content main-content">
         <h3>Profile</h3>
@@ -453,35 +495,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const buttons = document.querySelectorAll('.schedule .btn');
-            let tooltip = document.querySelector('.tooltip');
-        
-            // Якщо тултіп ще не існує, створюємо його
-            if (!tooltip) {
-                tooltip = document.createElement('div');
-                tooltip.className = 'tooltip';
-                document.body.appendChild(tooltip);
-            }
+            const tooltip = document.querySelector('.tooltip');
         
             buttons.forEach(button => {
                 button.addEventListener('mouseenter', function () {
                     const info = this.getAttribute('data-info');
                     if (info) {
-                        tooltip.innerHTML = info;
+                        const [subject, time, person] = info.split(', ');
+                        tooltip.innerHTML = `<strong>${subject}</strong><br>Time: <strong>${time}</strong><br>Person: ${person}`;
                         tooltip.style.display = 'block';
         
                         const rect = this.getBoundingClientRect();
                         const tooltipHeight = tooltip.offsetHeight;
         
-                        let top = rect.top + window.scrollY - tooltipHeight - 10; // Додаємо невеликий відступ
+                        let top = rect.top + window.scrollY - tooltipHeight - 10;
                         let left = rect.left + window.scrollX;
         
-                        // Перевірка, щоб тултіп не виходив за межі екрана
                         if (top < 0) {
-                            top = rect.bottom + window.scrollY + 10; // Вивести тултіп знизу, якщо зверху не вистачає місця
+                            top = rect.bottom + window.scrollY + 10;
                         }
         
                         if (left + tooltip.offsetWidth > window.innerWidth) {
-                            left = window.innerWidth - tooltip.offsetWidth - 10; // Виправлення для правого краю
+                            left = window.innerWidth - tooltip.offsetWidth - 10;
                         }
         
                         tooltip.style.left = `${left}px`;
@@ -491,6 +526,22 @@
         
                 button.addEventListener('mouseleave', function () {
                     tooltip.style.display = 'none';
+                });
+            });
+    
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+    
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+    
+                    tabLinks.forEach(link => link.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+    
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
                 });
             });
         });
