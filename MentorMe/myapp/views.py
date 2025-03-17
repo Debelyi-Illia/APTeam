@@ -65,7 +65,10 @@ def RegisterView(request):
     return render(request, 'register.html', {'form': form})
 
 def UserView(request):
-    return render(request, 'user_profile.html')
+    if request.user.is_authenticated:
+        return render(request, 'user_profile.html')
+    else:
+        return redirect('login')
 
 def custom_logout(request):
     logout(request)
