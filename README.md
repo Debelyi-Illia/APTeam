@@ -1,7 +1,7 @@
 # APTeam
 4th course Pre-graduation internship
 
-# Steps To Get Started Working With This Project#
+# Steps To Get Started Working With This Project #
 
 1. Install Python v. 3.10.13 or later and pip
 2. Open cmd
