@@ -11,7 +11,7 @@
 6. Clone this repository in a selected directory:
    git clone https://github.com/Debelyi-Illia/APTeam.git
 7. Open VS Code or PyCharm
-8. Open Folder "MentorMe"
+8. Open Folder "../APTeam/MentorMe"
 9. Enter command into IDE terminal:
 python manage.py runserver
 10. Click on the development server link (CTRL+CLICK):  
@@ -28,7 +28,7 @@ python manage.py runserver
 6. Клонуйте цей репозиторій у вибраному каталозі:
    git clone https://github.com/Debelyi-Illia/APTeam.git
 7. Відкрийте VS Code або PyCharm
-8. Відкрийте папку "MentorMe"
+8. Відкрийте папку "../APTeam/MentorMe"
 9. Введіть команду в термінал IDE:
 python manage.py runserver
 10. Натисніть на посилання сервера розробки (CTRL+CLICK):  
