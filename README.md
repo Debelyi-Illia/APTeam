@@ -9,7 +9,7 @@
 4. Enter the command  pip install django-widget-tweaks
 5. Download GitBash
 6. Clone this repository in a selected directory:
-git clone https://github.com/Debelyi-Illia/APTeam.git
+    git clone https://github.com/Debelyi-Illia/APTeam.git
 7. Open VS Code or PyCharm
 8. Open Folder "MentorMe"
 9. Enter command into IDE terminal:
@@ -26,7 +26,7 @@ python manage.py runserver
 4. Введіть команду pip install django-widget-tweaks
 5. Завантажте GitBash
 6. Клонуйте цей репозиторій у вибраному каталозі:
-git clone https://github.com/Debelyi-Illia/APTeam.git
+    git clone https://github.com/Debelyi-Illia/APTeam.git
 7. Відкрийте VS Code або PyCharm
 8. Відкрийте папку "MentorMe"
 9. Введіть команду в термінал IDE:
